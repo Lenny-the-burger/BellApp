@@ -10,9 +10,9 @@ import time
 #How to fix for release 2.0:
 #
 #instead of globals use lambdas
-#run mainloop in another thread (check unused _code.txt)
+#run mainloop in another thread (check unused_code.txt)
 #add animations
-#get time from time serversinstead of locally
+#get time from time servers instead of locally
 
 global are_timers_saved
 are_timers_saved = False
@@ -531,7 +531,3 @@ alpha_text.place(x=50, y=490)
 
 window.protocol("WM_DELETE_WINDOW", confirm_close)
 window.mainloop()
-
-#todo:
-#fix nonetype issue when no timers are left in calc_next
-#compile it and build release 0.1

@@ -130,6 +130,8 @@ def calc_next():
 
 def save():
     #Save timer to file
+    #
+    #Save format: name,time,order,colour(hex);
     global are_timers_saved
     global timers
     
@@ -137,6 +139,9 @@ def save():
     file_location = file_location.encode('unicode_escape')
     file_object = open(file_location, "w")
     text2save = ""
+
+    #update window title
+    window.title("BellApp - " + str(file_location).split("/")[len(str(file_location).split("/")) - 1][:-8])
     
     #name, timer_time, order, colour
     for i in timers:
@@ -149,16 +154,21 @@ def load():
     #Load timers from file
     global are_timers_saved
     global timers
-    timers = []  
+    timers = []
+
     file_location = filedialog.askopenfilename(defaultextension=".timers", filetypes=(("All files", ".*"),(".timers file", ".timers")))
     file_location = file_location.encode('unicode_escape')
     file_object = open(file_location, "r")
     timers_string = file_object.read()
+
     for i in timers_string.split(sep=";")[:-1]:
         timers.append(entry(i.split(sep=",")[0], int(i.split(sep=",")[1]), int(i.split(sep=",")[2]), i.split(sep=",")[3]))
     for i in timers:
         i.render_config()
     are_timers_saved = True
+
+    #display timer profile name in window title
+    window.title("BellApp - " + str(file_location).split("/")[len(str(file_location).split("/")) - 1][:-8])
 
 def start():
     #Start timers
@@ -266,7 +276,7 @@ def add_window(timer_pos=False):
         add_window_object.title("Edit bell")
     add_window_object.geometry("267x177")
     add_window_object['background']='#1C1C1E'
-   # add_window_object.iconbitmap("bell.ico")
+    add_window_object.iconbitmap("assets\\bell.ico")
     add_window_object.resizable(False, False)
 
     #time label
@@ -481,7 +491,7 @@ window = tk.Tk()
 window.title("BellApp")
 window.geometry("300x500")
 window['background']='#1C1C1E'
-#window.iconbitmap("bell.ico")
+window.iconbitmap("assets\\bell.ico")
 window.resizable(False, False)
 
 #config button
@@ -526,8 +536,8 @@ ring_btn = tk.Button(window, text="", command=ring_sound, image=ring_btn_img, re
 ring_btn.place(x=25, y=451)
 
 #alpha build text
-alpha_text= tk.Label(window, text="This is an alpha build meant for bugtesting. Alpha build 0.1", font=("Arial", 6), bg="#1C1C1E", border=0, fg="#FFFFFF")
-alpha_text.place(x=50, y=490)
+alpha_text= tk.Label(window, text="This is an alpha build meant for bugtesting. Alpha build 0.2", font=("Arial", 7), bg="#1C1C1E", border=0, fg="#FFFFFF")
+alpha_text.place(x=30, y=490)
 
 window.protocol("WM_DELETE_WINDOW", confirm_close)
 window.mainloop()

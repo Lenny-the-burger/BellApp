@@ -1,4 +1,3 @@
-from multiprocessing import Process, Queue
 from tkinter import PhotoImage
 from tkinter import filedialog
 from tkinter import messagebox

@@ -84,7 +84,7 @@ def ring():
 
 def ring_sound():
     #plays souind
-    ps.playsound("bell2.mp3")
+    ps.playsound("assets/bell2.mp3")
 
 def del_timer_special(timer_pos):
     #used for delting timer sin a special way

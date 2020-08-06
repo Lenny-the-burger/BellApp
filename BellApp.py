@@ -184,7 +184,7 @@ def start():
     clear_config_extras()
 
     #configure status bar mode
-    bar_mode = PhotoImage(file="Assets/bar_start_mode.png")
+    bar_mode = PhotoImage(file="assets/bar_start_mode.png")
     bar.configure(image=bar_mode)
     bar.image = bar_mode
 
@@ -205,7 +205,7 @@ def stop():
     
     #configure status bar mode
     global bar_mode
-    bar_mode = PhotoImage(file="Assets/bar_stop_mode.png")
+    bar_mode = PhotoImage(file="assets/bar_stop_mode.png")
     bar.configure(image=bar_mode)
     bar.image = bar_mode
 
@@ -221,7 +221,7 @@ def config():
     running = False
 
     #configure status bar mode
-    bar_mode = PhotoImage(file="Assets/bar_config_mode.png")
+    bar_mode = PhotoImage(file="assets/bar_config_mode.png")
     bar.configure(image=bar_mode)
     bar.image = bar_mode
 
@@ -308,14 +308,14 @@ def add_window(timer_pos=False):
     colour_btn.place(x=117, y=95)
 
     #ok button
-    ok_btn_image = PhotoImage(file="Assets/ok.png")
+    ok_btn_image = PhotoImage(file="assets/ok.png")
     ok_btn = tk.Button(add_window_object, text="", command=ok_close_add_window, image=ok_btn_image, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
     ok_btn.image = ok_btn_image
     ok_btn.place(x=43, y=135)
 
     #cancel button
     global cancel_btn
-    cancel_btn_image = PhotoImage(file="Assets/cancel.png")
+    cancel_btn_image = PhotoImage(file="assets/cancel.png")
     cancel_btn = tk.Button(add_window_object, text="", command=close_add_window, image=cancel_btn_image, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
     cancel_btn.image = cancel_btn_image
     cancel_btn.place(x=150, y=135)
@@ -433,7 +433,7 @@ class entry:
         #i have to do the stupid stuff with the invisible 1x1 image because
         #i can just update bg colour to change the colour instead of doing something
         #with PIL
-        invis_placeholder = PhotoImage(file="Assets/invis_placeholder.png")
+        invis_placeholder = PhotoImage(file="assets/invis_placeholder.png")
         color_indicator = tk.Label(window, image=invis_placeholder, bg=self.colour, width=11, height=24, border=0)
         color_indicator.place(x=0, y=107 + offset)
 
@@ -467,13 +467,13 @@ class entry:
 
         global garbage
         
-        edit_btn_img = PhotoImage(file="Assets/edit_entry.png")
+        edit_btn_img = PhotoImage(file="assets/edit_entry.png")
         edit_btn = tk.Button(add_window_object, text="", command=lambda:add_window(self.order), image=edit_btn_img, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
         edit_btn.image = edit_btn_img
         edit_btn.place(x=224, y=108 + offset)
         add_garbage(edit_btn)
 
-        delete_btn_img = PhotoImage(file="Assets/delete_entry.png")
+        delete_btn_img = PhotoImage(file="assets/delete_entry.png")
         delete_btn = tk.Button(add_window_object, text="",command=lambda:del_timer_special(self.order),  image=delete_btn_img, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
         delete_btn.image = delete_btn_img
         delete_btn.place(x=253, y=106 + offset)
@@ -494,43 +494,43 @@ window.iconbitmap("assets\\bell.ico")
 window.resizable(False, False)
 
 #config button
-config_image = PhotoImage(file="Assets/config.png")
+config_image = PhotoImage(file="assets/config.png")
 btn_config_widget = tk.Button(window, text="", command=config, image=config_image, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
 btn_config_widget.place(x=24, y=18)
 
 #start button
-start_image = PhotoImage(file="Assets/start.png")
+start_image = PhotoImage(file="assets/start.png")
 btn_start_widget = tk.Button(window, text="", command=start, image=start_image, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
 btn_start_widget.place(x=116, y=18)
 
 #stop button
-stop_image = PhotoImage(file="Assets/stop.png")
+stop_image = PhotoImage(file="assets/stop.png")
 btn_stop_widget = tk.Button(window, text="", command=stop, image=stop_image, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
 btn_stop_widget.place(x=208, y=18)
 
 #status bar
-bar_mode = PhotoImage(file="Assets/bar_stop_mode.png")
+bar_mode = PhotoImage(file="assets/bar_stop_mode.png")
 bar = tk.Label(window, text="", image=bar_mode, bg="#1C1C1E", border=0)
 bar.place(x=24, y=60)
 
 #saveload background
-saveload_bg_img = PhotoImage(file="Assets/bar_saveload.png")
+saveload_bg_img = PhotoImage(file="assets/bar_saveload.png")
 saveload_bg = tk.Label(window, text="", image=saveload_bg_img, border=0)
 
 #save button
-save_btn_img = PhotoImage(file="Assets/save_icon.png")
+save_btn_img = PhotoImage(file="assets/save_icon.png")
 save_btn = tk.Button(window, text="", command=save, image=save_btn_img, relief="flat", bg="#32A0F7", activebackground="#32A0F7", borderwidth=0, border=0)
 
 #load button
-load_btn_img = PhotoImage(file="Assets/load_icon.png")
+load_btn_img = PhotoImage(file="assets/load_icon.png")
 load_btn = tk.Button(window, text="", command=load, image=load_btn_img, relief="flat", bg="#32A0F7", activebackground="#32A0F7", borderwidth=0, border=0)
 
 #add button
-add_btn_img = PhotoImage(file="Assets/add_icon.png")
+add_btn_img = PhotoImage(file="assets/add_icon.png")
 add_btn = tk.Button(window, text="", command=add_window, image=add_btn_img, relief="flat", bg="#32A0F7", activebackground="#32A0F7", borderwidth=0, border=0)
 
 #forced ring button
-ring_btn_img = PhotoImage(file="Assets/forced_ring.png")
+ring_btn_img = PhotoImage(file="assets/forced_ring.png")
 ring_btn = tk.Button(window, text="", command=ring_sound, image=ring_btn_img, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0, border=0)
 ring_btn.place(x=25, y=451)
 

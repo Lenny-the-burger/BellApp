@@ -259,6 +259,16 @@ def get_colour():
     entry_colour = colorchooser.askcolor()[1]
     colour_btn.config(bg=entry_colour, activebackground=entry_colour)
 
+def get_sound():
+    #updates audio for entry
+    global entry_sound
+    global sound_btn
+    global sound_file_location
+    sound_file_location = filedialog.askopenfilename(defaultextension=".timers", filetypes=(("All files", ".*"),("MP3 file", ".mp3"),("WAV file", ".wav")))
+    sound_file_location = sound_file_location.encode('unicode_escape')
+    entry_sound = str(sound_file_location).split("/")[-1][:-1]
+    sound_btn.config(text=entry_sound)
+
 def add_window(timer_pos=False):
     #creates a new window for timer creation or editing a timer
     #if flag timer_pos have to get info from timers list to edit
@@ -273,7 +283,7 @@ def add_window(timer_pos=False):
         add_window_object.title("Add bell")
     else:
         add_window_object.title("Edit bell")
-    add_window_object.geometry("267x177")
+    add_window_object.geometry("267x220")
     add_window_object['background']='#1C1C1E'
     add_window_object.iconbitmap("assets\\bell.ico")
     add_window_object.resizable(False, False)
@@ -307,18 +317,29 @@ def add_window(timer_pos=False):
     colour_btn = tk.Button(add_window_object, text="Edit", width=14, command=get_colour, relief="flat", bg=entry_colour, activebackground=entry_colour, borderwidth=0)
     colour_btn.place(x=117, y=95)
 
+    #sound label
+    sound_label = tk.Label(add_window_object, text="Sound:", bg="#1C1C1E", border=0, font=("Segoe_UI", 15), fg="#FFFFFF")
+    sound_label.place(x=43, y=134)
+
+    #sound select button
+    global entry_sound
+    entry_sound = "Default"
+    global sound_btn
+    sound_btn = tk.Button(add_window_object, text=entry_sound, width=14, command=get_sound, relief="flat", bg="#b8b8b8", activebackground=entry_colour, borderwidth=0)
+    sound_btn.place(x=117, y=135)
+
     #ok button
     ok_btn_image = PhotoImage(file="assets/ok.png")
     ok_btn = tk.Button(add_window_object, text="", command=ok_close_add_window, image=ok_btn_image, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
     ok_btn.image = ok_btn_image
-    ok_btn.place(x=43, y=135)
+    ok_btn.place(x=43, y=175)
 
     #cancel button
     global cancel_btn
     cancel_btn_image = PhotoImage(file="assets/cancel.png")
     cancel_btn = tk.Button(add_window_object, text="", command=close_add_window, image=cancel_btn_image, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0)
     cancel_btn.image = cancel_btn_image
-    cancel_btn.place(x=150, y=135)
+    cancel_btn.place(x=150, y=175)
 
     #mess of globals cos i cant pass function arguments through buttons
     #thanks tkinter

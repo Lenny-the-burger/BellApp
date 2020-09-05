@@ -72,12 +72,18 @@ def ring():
     global current_time
     global timers
     global running
+
     if len(timers) == 0:
         return
-    if current_time == timers[calc_next()].timer_time:
+    
+    next_index = int(calc_next())
+    if current_time == timers[next_index].timer_time:
         if calc_next() not in times_rung:
-            times_rung.append(calc_next())
-            ring_sound()
+            times_rung.append(next_index)
+            if timers[next_index].sound:
+                timers[next_index].ring_entry()
+            else:
+                ring_sound()
             window.after(100000, lambda:times_rung.pop(0))
     if running:
         window.after(60000, ring)
@@ -144,7 +150,7 @@ def save():
     
     #name, timer_time, order, colour
     for i in timers:
-        text2save += str(i.name) + "," + str(i.timer_time) + "," + str(i.order) + "," + str(i.colour) + ";"
+        text2save += str(i.name) + "," + str(i.timer_time) + "," + str(i.order) + "," + str(i.colour) + "," + str(i.sound) + ","
     file_object.write(text2save)
     file_object.close()
     are_timers_saved = True
@@ -161,7 +167,7 @@ def load():
     timers_string = file_object.read()
 
     for i in timers_string.split(sep=";")[:-1]:
-        timers.append(entry(i.split(sep=",")[0], int(i.split(sep=",")[1]), int(i.split(sep=",")[2]), i.split(sep=",")[3]))
+        timers.append(entry(i.split(sep=",")[0], int(i.split(sep=",")[1]), int(i.split(sep=",")[2]), i.split(sep=",")[3], i.split(sep=",")[4]))
     for i in timers:
         i.render_config()
     are_timers_saved = True
@@ -267,12 +273,18 @@ def get_sound():
     sound_file_location = filedialog.askopenfilename(defaultextension=".timers", filetypes=(("All files", ".*"),("MP3 file", ".mp3"),("WAV file", ".wav")))
     sound_file_location = sound_file_location.encode('unicode_escape')
     entry_sound = str(sound_file_location).split("/")[-1][:-1]
+
+    if entry_sound == "b'":
+        entry_sound = "Default"
+        sound_file_location = False
+
+    sound_file_location = str(sound_file_location)[2:-1]
     sound_btn.config(text=entry_sound)
 
 def add_window(timer_pos=False):
     #creates a new window for timer creation or editing a timer
     #if flag timer_pos have to get info from timers list to edit
-    
+    global sound_file_location
     global timers
     global add_window_object
     if add_window_object:
@@ -287,6 +299,8 @@ def add_window(timer_pos=False):
     add_window_object['background']='#1C1C1E'
     add_window_object.iconbitmap("assets\\bell.ico")
     add_window_object.resizable(False, False)
+
+    sound_file_location = False
 
     #time label
     time_label = tk.Label(add_window_object, text="Time:", bg="#1C1C1E", border=0, font=("Segoe_UI", 15), fg="#FFFFFF")
@@ -392,6 +406,7 @@ def ok_close_add_window(timer_pos=False):
     #
     #i have to global everything because tkinter is dumb and wont
     #let me pass function arguments through buttons
+    #Edit: found a better way but no time to implement it (use lambdas)
     global are_timers_saved
     are_timers_saved = False
     
@@ -400,6 +415,7 @@ def ok_close_add_window(timer_pos=False):
     global timer_name
     global entry_colour
     global cancel_btn
+    global sound_file_location
     
     if not cancel_btn:
         return
@@ -425,8 +441,8 @@ def ok_close_add_window(timer_pos=False):
     if type(timer_pos) == int:
         del timers[timer_pos]
         
-    #name, timer_time, place, colour
-    timers.append(entry(timer_name.get(), int(time_hours.get())*60 + int(time_minutes.get()), False, entry_colour))
+    #name, timer_time, place, colour, sound
+    timers.append(entry(timer_name.get(), int(time_hours.get())*60 + int(time_minutes.get()), False, entry_colour, sound_file_location))
     close_add_window()
 
 class entry:
@@ -438,11 +454,12 @@ class entry:
     #colour is a hex str of colour indicator colour
     #
     #!!!Remember to call get_time() beforehand or the program will crash!!!
-    def __init__(self, name, timer_time, order, colour):
+    def __init__(self, name, timer_time, order, colour, sound):
         self.name = name
         self.timer_time = timer_time
         self.order = order
         self.colour = colour
+        self.sound = sound
 
     def render(self, config_mode=False):
         #positioning is dependant on a function of position
@@ -500,7 +517,10 @@ class entry:
         delete_btn.place(x=253, y=106 + offset)
         add_garbage(delete_btn)
 
-        #render_config_clear has ben removed because im just gonna add everything to the garbage
+    def ring_entry(self):
+        #plays custom sound
+        ps.playsound(self.sound)
+
 
 
 #useful values:

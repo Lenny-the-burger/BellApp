@@ -143,6 +143,7 @@ def save():
     file_location = filedialog.asksaveasfilename(defaultextension=".timers", filetypes=(("All files", ".*"),(".timers file", ".timers")))
     file_location = file_location.encode('unicode_escape')
     file_object = open(file_location, "w")
+    file_object.truncate(0)
     text2save = ""
 
     #update window title
@@ -150,10 +151,11 @@ def save():
     
     #name, timer_time, order, colour
     for i in timers:
-        text2save += str(i.name) + "," + str(i.timer_time) + "," + str(i.order) + "," + str(i.colour) + "," + str(i.sound) + ","
+        text2save += str(i.name) + "," + str(i.timer_time) + "," + str(i.order) + "," + str(i.colour) + "," + str(i.sound) + ";"
     file_object.write(text2save)
     file_object.close()
     are_timers_saved = True
+    file_object.close()
 
 def load():
     #Load timers from file
@@ -174,6 +176,7 @@ def load():
 
     #display timer profile name in window title
     window.title("BellApp - " + str(file_location).split("/")[len(str(file_location).split("/")) - 1][:-8])
+    file_object.close()
 
 def start():
     #Start timers

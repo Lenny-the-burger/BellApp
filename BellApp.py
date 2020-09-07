@@ -575,9 +575,5 @@ ring_btn_img = PhotoImage(file="assets/forced_ring.png")
 ring_btn = tk.Button(window, text="", command=ring_sound, image=ring_btn_img, relief="flat", bg="#1C1C1E", activebackground="#1C1C1E", borderwidth=0, border=0)
 ring_btn.place(x=25, y=451)
 
-#alpha build text
-alpha_text= tk.Label(window, text="This is an alpha build meant for bugtesting. Alpha build 0.2", font=("Arial", 7), bg="#1C1C1E", border=0, fg="#FFFFFF")
-alpha_text.place(x=30, y=490)
-
 window.protocol("WM_DELETE_WINDOW", confirm_close)
 window.mainloop()

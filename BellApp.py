@@ -79,6 +79,7 @@ def ring():
     next_index = int(calc_next())
     if current_time == timers[next_index].timer_time:
         if calc_next() not in times_rung:
+            print(True)
             times_rung.append(next_index)
             if timers[next_index].sound:
                 timers[next_index].ring_entry()
@@ -151,7 +152,7 @@ def save():
     
     #name, timer_time, order, colour
     for i in timers:
-        text2save += str(i.name) + "," + str(i.timer_time) + "," + str(i.order) + "," + str(i.colour) + "," + str(i.sound) + ";"
+        text2save += str(i.name) + "," + str(i.timer_time) + "," + str(i.order) + "," + str(i.colour) + "," + temp + ";"
     file_object.write(text2save)
     file_object.close()
     are_timers_saved = True
@@ -169,7 +170,11 @@ def load():
     timers_string = file_object.read()
 
     for i in timers_string.split(sep=";")[:-1]:
-        timers.append(entry(i.split(sep=",")[0], int(i.split(sep=",")[1]), int(i.split(sep=",")[2]), i.split(sep=",")[3], i.split(sep=",")[4]))
+        if i.split(sep=",")[4] == "False":
+            temp = False
+        else:
+            temp = i.split(sep=",")[4]
+        timers.append(entry(i.split(sep=",")[0], int(i.split(sep=",")[1]), int(i.split(sep=",")[2]), i.split(sep=",")[3], temp))
     for i in timers:
         i.render_config()
     are_timers_saved = True

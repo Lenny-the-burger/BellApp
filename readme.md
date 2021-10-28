@@ -1,5 +1,7 @@
 This code is ancient and garbage
 
+This code is almost 2 years old and does not represent my current state of coding abilites, i might even tak this down.
+
 
 assets contains assets necessary to operate, program will not work without these files
 extras contains test file, unused code, and .sketch file of main ui design does not need to be inclided in install

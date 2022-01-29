@@ -1,6 +1,6 @@
 This code is ancient and garbage
 
-This code is almost 2 years old and does not represent my current state of coding abilites, i might even tak this down.
+T
 
 
 assets contains assets necessary to operate, program will not work without these files
